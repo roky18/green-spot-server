@@ -24,52 +24,85 @@ async function run() {
     await client.connect();
 
     const db = client.db("green_spot_db");
-    const productsCollection = db.collection("products");
+    const issuesCollection = db.collection("issues");
+    const myContributionCollection = db.collection("myContribution");
 
     // find all--->
 
-    app.get("/products", async (req, res) => {
-      const cursor = productsCollection.find();
+    app.get("/issues", async (req, res) => {
+      const email = req.query.email;
+      const query = {};
+      if (email) {
+        query.email = email;
+      }
+      const cursor = issuesCollection.find(query).sort({ date: -1 });
       const result = await cursor.toArray();
       res.send(result);
     });
 
     // find one--->
 
-    app.get("/products/:id", async (req, res) => {
+    app.get("/issues/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      const result = await productsCollection.findOne(query);
+      const result = await issuesCollection.findOne(query);
       res.send(result);
     });
 
     // Post--->
 
-    app.post("/products", async (req, res) => {
+    app.post("/issues", async (req, res) => {
       const newProduct = req.body;
-      const result = await productsCollection.insertOne(newProduct);
+      const result = await issuesCollection.insertOne(newProduct);
       res.send(result);
     });
 
     // Delete--->
 
-    app.delete("/products/:id", async (req, res) => {
+    app.delete("/issues/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
-      const result = await productsCollection.deleteOne(query);
+      const result = await issuesCollection.deleteOne(query);
       res.send(result);
     });
 
     // Patch--->
 
-    app.patch("/products/:id", async (req, res) => {
+    app.patch("/issues/:id", async (req, res) => {
       const id = req.params.id;
-      const updateProducts = req.body;
+      const updateissues = req.body;
       const query = { _id: new ObjectId(id) };
       const update = {
-        $set: updateProducts,
+        $set: updateissues,
       };
-      const result = await productsCollection.updateOne(query, update);
+      const result = await issuesCollection.updateOne(query, update);
+      res.send(result);
+    });
+
+    // ---->>Contribution related apis
+
+    app.get("/myContribution", async (req, res) => {
+      const email = req.query.email;
+      const query = {};
+      if (email) {
+        query.email = email;
+      }
+
+      const cursor = myContributionCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    app.post("/myContribution", async (req, res) => {
+      const newContribution = req.body;
+      const result = await myContributionCollection.find();
+      res.send(result);
+    });
+
+    app.delete("/myContribution/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await myContributionCollection.deleteOne(query);
       res.send(result);
     });
 
