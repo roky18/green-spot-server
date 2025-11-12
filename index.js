@@ -28,6 +28,14 @@ async function run() {
     const myContributionCollection = db.collection("myContribution");
     const usersCollection = db.collection("users");
 
+    app.get("/resentComplain", async (req, res) => {
+      const cursor = issuesCollection.find().sort({ date: -1 }).limit(6);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
+    //  Users Api--->>
+
     app.post("/users", async (req, res) => {
       const newUser = req.body;
       const email = req.body.email;
@@ -41,7 +49,7 @@ async function run() {
       }
     });
 
-    // All Issues--->
+    // All Issues Api--->
 
     app.get("/issues", async (req, res) => {
       const email = req.query.email;
@@ -54,7 +62,7 @@ async function run() {
       res.send(result);
     });
 
-    // find one--->
+    // find one->
 
     app.get("/issues/:id", async (req, res) => {
       const id = req.params.id;
@@ -63,15 +71,13 @@ async function run() {
       res.send(result);
     });
 
-    // Post--->
-
     app.post("/issues", async (req, res) => {
       const newProduct = req.body;
       const result = await issuesCollection.insertOne(newProduct);
       res.send(result);
     });
 
-    // Delete--->
+    // Delete->
 
     app.delete("/issues/:id", async (req, res) => {
       const id = req.params.id;
@@ -80,7 +86,7 @@ async function run() {
       res.send(result);
     });
 
-    // Patch--->
+    // Patch->
 
     app.patch("/issues/:id", async (req, res) => {
       const id = req.params.id;
@@ -93,7 +99,7 @@ async function run() {
       res.send(result);
     });
 
-    // ---->>Contribution related apis
+    // Contribution related apis--->
 
     app.get("/myContribution", async (req, res) => {
       const email = req.query.email;
