@@ -26,8 +26,22 @@ async function run() {
     const db = client.db("green_spot_db");
     const issuesCollection = db.collection("issues");
     const myContributionCollection = db.collection("myContribution");
+    const usersCollection = db.collection("users");
 
-    // find all--->
+    app.post("/users", async (req, res) => {
+      const newUser = req.body;
+      const email = req.body.email;
+      const query = { email: email };
+      const existingUser = await usersCollection.findOne(query);
+      if (existingUser) {
+        res.send({ message: "user already exits.do to need insert again" });
+      } else {
+        const result = await usersCollection.insertOne(newUser);
+        res.send(result);
+      }
+    });
+
+    // All Issues--->
 
     app.get("/issues", async (req, res) => {
       const email = req.query.email;
