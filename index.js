@@ -99,7 +99,7 @@ async function run() {
       res.send(result);
     });
 
-    // Contribution related apis--->
+    // Contribution related apis----->
 
     app.get("/myContribution", async (req, res) => {
       const email = req.query.email;
