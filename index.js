@@ -107,7 +107,6 @@ async function run() {
       if (email) {
         query.email = email;
       }
-
       const cursor = myContributionCollection.find(query);
       const result = await cursor.toArray();
       res.send(result);
@@ -115,7 +114,7 @@ async function run() {
 
     app.post("/myContribution", async (req, res) => {
       const newContribution = req.body;
-      const result = await myContributionCollection.find();
+      const result = await myContributionCollection.insertOne(newContribution);
       res.send(result);
     });
 
