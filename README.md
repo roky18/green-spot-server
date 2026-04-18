@@ -1,33 +1,3 @@
-# 🌿 Green Spot (Server Side)
-
-🔗 **Live API Link:** [https://green-spot-server.vercel.app](https://green-spot-server.vercel.app)
-
-## 📖 Project Overview
-
-This is the backend server for the **Green Spot — Community Cleanliness Portal**. It serves as the bridge between the frontend and the MongoDB database, handling secure issue reporting, data persistence, and community contribution tracking. Built with **Node.js**, **Express.js**, and **MongoDB**.
-
-The server is designed to be lightweight, efficient, and secure, ensuring that citizens' reports are stored and retrieved reliably.
-
----
-
-## ✨ Key Features
-
-- 📂 **Issue Management:** API endpoints for creating, reading, and updating community reports.
-- 🔐 **Data Security:** Environment variables protection using `dotenv`.
-- 🌐 **CORS Enabled:** Configured for secure cross-origin requests from the frontend.
-- 📊 **Query Filtering:** Ability to fetch reports based on categories or user history.
-- ⚡ **Optimized Performance:** Fast data retrieval using MongoDB indexing.
-
----
-
-## 🛠️ Technologies Used
-
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MongoDB
-- **Security:** Cors & Dotenv
-
----
 
 # 🌿 Green Spot (Server Side)
 
